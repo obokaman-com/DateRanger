@@ -35,12 +35,12 @@ abstract class DateRange implements \Iterator, \Countable
 
     public function getPeriod($interval = 'P1D', \DateTime $start = null, \DateTime $end = null)
     {
-        if (null == $start)
+        if (null === $start)
         {
             $start = $this->start;
         }
 
-        if (null == $end)
+        if (null === $end)
         {
             $end = $this->end;
         }

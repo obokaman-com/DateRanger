@@ -1,8 +1,6 @@
 <?php
 include "./../vendor/autoload.php";
 
-use DateRanger\Period\Day;
-use DateRanger\Period\Month;
 use DateRanger\Period\Year;
 
 $year = Year::fromYear(2015);
