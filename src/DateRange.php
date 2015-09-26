@@ -63,7 +63,7 @@ abstract class DateRange implements \Iterator, \Countable
     {
         $period = new static();
 
-        return $this->overlaps($period);
+        return $this->equals($period);
     }
 
     public function current()
