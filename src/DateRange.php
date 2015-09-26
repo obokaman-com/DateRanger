@@ -13,11 +13,6 @@ abstract class DateRange implements \Iterator, \Countable
     /** @var array */
     protected $dates = [];
 
-    /**
-     * @param null|string $day
-     */
-    abstract public function __construct($day = null);
-
     protected static function cloneDate(\DateTime $date)
     {
         return clone $date;
