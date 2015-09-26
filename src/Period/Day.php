@@ -8,7 +8,6 @@ final class Day extends PeriodBase
 {
     public $weekend = [6, 0];
 
-    // TODO: Allow creating dynamic provider for holidays.
     public $holidays = [
         '*-01-01', // Año nuevo
         '*-01-06', // Reyes
