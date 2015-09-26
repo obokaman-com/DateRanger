@@ -2,36 +2,30 @@
 
 namespace DateRanger\Period;
 
-use DateRanger\PeriodBase;
+use DateRanger\DateRange;
 
-final class Year extends PeriodBase
+final class Year extends DateRange
 {
-    private function __construct(\DateTimeInterface $first_day_of_year, \DateTimeInterface $last_day_of_year)
+    /**
+     * @param null|string $day
+     */
+    public function __construct($day = null)
     {
-        $this->start = $this->forceImmutableDate($first_day_of_year->setTime(0, 0, 0));
-        $this->end   = $this->forceImmutableDate($last_day_of_year->setTime(23, 59, 59));
-        $period      = $this->getPeriod('P1M');
+        $day = new \DateTime($day);
+
+        $this->start = $this->cloneDate($day)->modify('first day of january')->setTime(0, 0, 0);
+        $this->end   = $this->cloneDate($day)->modify('last day of december')->setTime(23, 59, 59);
+
+        $period = $this->getPeriod('P1M');
         foreach ($period as $month)
         {
-            $this->dates[] = Month::fromDay($month);
+            $this->dates[] = new Month($month->format('Y-m-d'));
         }
     }
 
     public static function fromYear($year)
     {
-        $start = new \DateTimeImmutable($year . '-1-1');
-        $end   = new \DateTimeImmutable($year . '-12-31');
-
-        return new self($start, $end);
-    }
-
-    public static function fromDay(\DateTimeInterface $day)
-    {
-        $year  = $day->format('Y');
-        $start = new \DateTimeImmutable($year . '-1-1');
-        $end   = new \DateTimeImmutable($year . '-12-31');
-
-        return new self($start, $end);
+        return new self($year . '-1-1');
     }
 
     /**

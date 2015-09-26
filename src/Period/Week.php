@@ -2,42 +2,52 @@
 
 namespace DateRanger\Period;
 
-use DateRanger\PeriodBase;
+use DateRanger\DateRange;
 
-final class Week extends PeriodBase
+final class Week extends DateRange
 {
     const WEEK_START_DAY = 1;
 
-    private function __construct(\DateTimeInterface $first_day_of_week)
+    /**
+     * @param null|string $day
+     */
+    public function __construct($day = null)
     {
-        $this->start = self::forceImmutableDate($first_day_of_week->setTime(0, 0, 0));
-        $this->end   = $this->start->modify('+6 days')->setTime(23, 59, 59);
-        $period      = $this->getPeriod();
+        $day = new \DateTime($day);
+
+        $first_day_of_week = self::getFirstDayOfWeek($day);
+
+        $this->start = self::cloneDate($first_day_of_week)->setTime(0, 0, 0);
+        $this->end   = self::cloneDate($first_day_of_week)->modify('+6 days')->setTime(23, 59, 59);
+
+        $period = $this->getPeriod();
         foreach ($period as $day)
         {
-            $this->dates[] = new Day($day);
+            $this->dates[] = new Day($day->format('Y-m-d'));
         }
     }
 
-    public static function fromDay(\DateTimeInterface $a_day)
+    public static function fromWeekNumber($year, $week_number)
     {
-        return new self(self::getFirstDayOfWeek($a_day));
+        $date = new \DateTime();
+        $date->setISODate($year, $week_number);
+        return new self($date->format('Y-m-d'));
     }
 
-    public static function getFirstDayOfWeek(\DateTimeInterface $a_day)
+    public static function getFirstDayOfWeek(\DateTime $a_day)
     {
-        $a_day = self::forceImmutableDate($a_day);
+        $day = self::cloneDate($a_day);
 
-        $first_weekday_diff = (int) ($a_day->format('w') - self::WEEK_START_DAY);
+        $first_weekday_diff = (int) ($day->format('w') - self::WEEK_START_DAY);
 
         if (0 > $first_weekday_diff)
         {
             $first_weekday_diff = 7 + $first_weekday_diff;
 
-            return $a_day->modify('-' . $first_weekday_diff . ' days');
+            return $day->modify('-' . $first_weekday_diff . ' days');
         }
 
-        return $a_day->modify('-' . $first_weekday_diff . ' days');
+        return $day->modify('-' . $first_weekday_diff . ' days');
     }
 
     /**

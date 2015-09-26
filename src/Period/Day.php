@@ -2,9 +2,9 @@
 
 namespace DateRanger\Period;
 
-use DateRanger\PeriodBase;
+use DateRanger\DateRange;
 
-final class Day extends PeriodBase
+final class Day extends DateRange
 {
     public $weekend = [6, 0];
 
@@ -27,12 +27,17 @@ final class Day extends PeriodBase
         '2015-04-06' // Lunes de Pascua
     ];
 
-    public function __construct(\DateTimeInterface $day)
+    /**
+     * @param null|string $day
+     */
+    public function __construct($day = null)
     {
-        $date        = $this->forceImmutableDate($day);
-        $this->start = $date->setTime(0, 0, 0);
-        $this->end   = $date->setTime(23, 59, 59);
-        $this->dates = [$date];
+        $day = new \DateTime($day);
+
+        $this->start = $this->cloneDate($day)->setTime(0, 0, 0);
+        $this->end   = $this->cloneDate($day)->setTime(23, 59, 59);
+
+        $this->dates = [$this->cloneDate($day)->setTime(0, 0, 0)];
     }
 
     public function isWeekend()

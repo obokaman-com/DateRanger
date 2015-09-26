@@ -11,7 +11,7 @@ final class YearTest extends \PHPUnit_Framework_TestCase
      */
     public function validYear()
     {
-        $year = Year::fromDay(new \DateTimeImmutable('now'));
+        $year = new Year();
         $this->assertEquals(date('Y'), $year->start()->format('Y'));
     }
 
@@ -20,7 +20,7 @@ final class YearTest extends \PHPUnit_Framework_TestCase
      */
     public function validContents()
     {
-        $year = Year::fromDay(new \DateTimeImmutable('now'));
+        $year = new Year();
         $this->assertEquals(12, count($year));
     }
 }

@@ -2,49 +2,44 @@
 
 namespace DateRanger\Period;
 
-use DateRanger\PeriodBase;
+use DateRanger\DateRange;
 
-final class Month extends PeriodBase
+final class Month extends DateRange
 {
-    private function __construct(\DateTimeInterface $first_day_of_month, \DateTimeInterface $last_day_of_month)
+    /**
+     * @param null|string $day
+     */
+    public function __construct($day = null)
     {
-        $this->start = $this->forceImmutableDate($first_day_of_month->setTime(0, 0, 0));
-        $this->end   = $this->forceImmutableDate($last_day_of_month->setTime(23, 59, 59));
-        $period      = $this->getPeriod('P7D');
+        $day = new \DateTime($day);
+
+        $this->start = self::cloneDate($day)->modify('first day of this month')->setTime(0, 0, 0);
+        $this->end   = self::cloneDate($day)->modify('last day of this month')->setTime(23, 59, 59);
+
+        $period = $this->getPeriod('P7D', Week::getFirstDayOfWeek($this->start()));
         foreach ($period as $week)
         {
-            $this->dates[] = Week::fromDay($week);
+            $this->dates[] = new Week($week->format('Y-m-d'));
         }
     }
 
     public static function fromMonth($year, $month)
     {
-        $start = new \DateTimeImmutable($year . '-' . $month . '-1');
-        $end   = $start->modify('last day of this month');
-
-        return new self($start, $end);
-    }
-
-    public static function fromDay(\DateTimeInterface $day)
-    {
-        $day   = self::forceImmutableDate($day);
-        $start = $day->modify('first day of this month');
-        $end   = $day->modify('last day of this month');
-
-        return new self($start, $end);
+        return new self($year . '-' . $month . '-1');
     }
 
     /**
-     * @param \DateTimeInterface|PeriodBase $period
+     * @param \DateTime|DateRange $period
      *
      * @return bool
      */
     public function isOutOfMonth($period)
     {
-        if ($period instanceof \DateTimeInterface)
+        if ($period instanceof \DateTime)
         {
             return !$this->overlaps(new Day($period));
         }
+
         return !$this->overlaps($period);
     }
 
