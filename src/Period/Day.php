@@ -6,10 +6,10 @@ use DateRanger\PeriodBase;
 
 final class Day extends PeriodBase
 {
-    const WEEKENDS = [6, 0];
+    public $weekend = [6, 0];
 
     // TODO: Allow creating dynamic provider for holidays.
-    const HOLIDAYS = [
+    public $holidays = [
         '*-01-01', // Año nuevo
         '*-01-06', // Reyes
         '*-05-01', // Día del trabajador
@@ -38,7 +38,7 @@ final class Day extends PeriodBase
 
     public function isWeekend()
     {
-        return in_array($this->start()->format('w'), self::WEEKENDS);
+        return in_array($this->start()->format('w'), $this->weekend);
     }
 
     public function isHoliday()
@@ -48,12 +48,12 @@ final class Day extends PeriodBase
             return true;
         }
 
-        if (in_array($this->start->format('Y-m-d'), self::HOLIDAYS))
+        if (in_array($this->start->format('Y-m-d'), $this->holidays))
         {
             return true;
         }
 
-        if (in_array($this->start->format('*-m-d'), self::HOLIDAYS))
+        if (in_array($this->start->format('*-m-d'), $this->holidays))
         {
             return true;
         }
