@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>DateRanger by obokaman-com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">DateRanger</h1>
+      <h2 class="project-tagline">A PHP 5.4+ date ranges management library with predefined ranges like Year, Month, Week, Day.</h2>
+      <a href="https://github.com/obokaman-com/DateRanger" class="btn">View on GitHub</a>
+      <a href="https://github.com/obokaman-com/DateRanger/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/obokaman-com/DateRanger/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="dateranger" class="anchor" href="#dateranger" aria-hidden="true"><span class="octicon octicon-link"></span></a>DateRanger</h1>
+
+<p><a href="https://travis-ci.org/obokaman-com/DateRanger"><img src="https://travis-ci.org/obokaman-com/DateRanger.svg?branch=master" alt="Build Status"></a> <a href="https://insight.sensiolabs.com/projects/bf7b5c30-ee2d-47ec-97af-e89aa848707f"><img src="https://insight.sensiolabs.com/projects/bf7b5c30-ee2d-47ec-97af-e89aa848707f/mini.png" alt="SensioLabsInsight"></a></p>
+
+<p>DateRanger library offer an easy way to create date ranges, allowing to create your own special ranges extending <code>DateRange</code> or reuse the basic ones included in the library itself (<code>Year</code>, <code>Month</code>, <code>Week</code> or <code>Day</code>). This library was inspired by others like <a href="https://github.com/yohang/CalendR">Calendr</a> by <a href="http://yohan.giarel.li/">Yohan Giarelli</a> or <a href="http://period.thephpleague.com/">Period</a> by <a href="http://thephpleague.com/">The PHP League</a></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>DateRanger is available on packagist, so you can easily install with <a href="https://getcomposer.org/">Composer</a>.</p>
+
+<p>Just run the following command:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ composer require obokaman/dateranger</pre></div>
+
+<p>or include the library in your project's composer.json:</p>
+
+<div class="highlight highlight-source-js"><pre>    <span class="pl-s"><span class="pl-pds">"</span>require<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>php<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&gt;=5.4<span class="pl-pds">"</span></span>,
+        [...]
+        <span class="pl-s"><span class="pl-pds">"</span>obokaman/dateranger<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>^0.1.2<span class="pl-pds">"</span></span>,
+        [...]
+    },</pre></div>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">DateRanger\Period\Year</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$year</span> <span class="pl-k">=</span> <span class="pl-c1">Year</span><span class="pl-k">::</span>fromYear(<span class="pl-c1">2015</span>);</span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;h1&gt;<span class="pl-pds">"</span></span> <span class="pl-k">.</span> <span class="pl-smi">$year</span><span class="pl-k">-&gt;</span>start()<span class="pl-k">-&gt;</span>format(<span class="pl-s"><span class="pl-pds">'</span>Y<span class="pl-pds">'</span></span>) <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;/h1&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">foreach</span> (<span class="pl-smi">$year</span> <span class="pl-k">as</span> <span class="pl-smi">$month</span>)</span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;table&gt;&lt;caption&gt;<span class="pl-pds">"</span></span> <span class="pl-k">.</span> <span class="pl-smi">$month</span><span class="pl-k">-&gt;</span>start()<span class="pl-k">-&gt;</span>format(<span class="pl-s"><span class="pl-pds">'</span>F<span class="pl-pds">'</span></span>) <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;/caption&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;thead&gt;&lt;tr&gt;&lt;th&gt;L&lt;/th&gt;&lt;th&gt;M&lt;/th&gt;&lt;th&gt;X&lt;/th&gt;&lt;th&gt;J&lt;/th&gt;&lt;th&gt;V&lt;/th&gt;&lt;th&gt;S&lt;/th&gt;&lt;th&gt;D&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">    <span class="pl-k">foreach</span> (<span class="pl-smi">$month</span> <span class="pl-k">as</span> <span class="pl-smi">$week</span>)</span>
+<span class="pl-s1">    {</span>
+<span class="pl-s1">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;tr&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">        <span class="pl-k">foreach</span> (<span class="pl-smi">$week</span> <span class="pl-k">as</span> <span class="pl-smi">$day</span>)</span>
+<span class="pl-s1">        {</span>
+<span class="pl-s1">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;td&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">            <span class="pl-c1">echo</span> <span class="pl-smi">$day</span><span class="pl-k">-&gt;</span>start()<span class="pl-k">-&gt;</span>format(<span class="pl-s"><span class="pl-pds">'</span>d<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;/td&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">        }</span>
+<span class="pl-s1">        <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;/tr&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">    }</span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;/tbody&gt;&lt;/table&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">}</span></pre></div>
+
+<h2>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic usage</h2>
+
+<p>Library provides several date range objects that extends from <code>DateRange</code>. All these objects share some functionality:</p>
+
+<ul>
+<li>
+<code>start()</code> return a DateTime object with the start date for the period.</li>
+<li>
+<code>end()</code> return a DateTime object with the end date for the period.</li>
+<li>
+<code>getPeriod(string $interval)</code> returns an array with DateTime objects following the given interval in string format (same values accepted by DateInterval constructor).</li>
+<li>
+<code>overlaps(DateRange $period)</code> returns a boolean indicating if period overlaps with the one passed as argument.</li>
+<li>
+<code>isCurrent()</code> returns a boolean indicating if period is the current one: current year, month, week or day, depending on the class being used.</li>
+<li>
+<code>equals(DateRange $period)</code> compares start and end dates between current period and the one passed as argument.</li>
+</ul>
+
+<p>As told above, all date range objects extend from <code>DateRange</code>, wich implements <code>Iterator</code> and <code>Countable</code>, so it's possible to iterate through their "children periods" directly using <code>foreach</code> or know how many of them are contained by using <code>count</code>. </p>
+
+<p>For instance:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$year</span> <span class="pl-k">=</span> <span class="pl-c1">Year</span><span class="pl-k">::</span>fromYear(<span class="pl-c1">2014</span>);</span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-c1">count</span>(<span class="pl-smi">$year</span>); <span class="pl-c">// returns 12.</span></span></pre></div>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$month</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Month</span>(<span class="pl-s"><span class="pl-pds">'</span>2014-01-01<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-c1">count</span>(<span class="pl-smi">$month</span>); <span class="pl-c">// returns 31.</span></span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$month</span><span class="pl-k">-&gt;</span>start()<span class="pl-k">-&gt;</span>format(<span class="pl-s"><span class="pl-pds">'</span>F<span class="pl-pds">'</span></span>); <span class="pl-c">// returns 'January'.</span></span>
+<span class="pl-s1"><span class="pl-k">foreach</span> (<span class="pl-smi">$month</span> <span class="pl-k">as</span> <span class="pl-smi">$day</span>)</span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">    <span class="pl-c1">echo</span> <span class="pl-smi">$day</span><span class="pl-k">-&gt;</span>start()<span class="pl-k">-&gt;</span>format(<span class="pl-s"><span class="pl-pds">'</span>Y-m-d<span class="pl-pds">'</span></span>) <span class="pl-k">.</span> <span class="pl-c1">PHP_EOL</span>; <span class="pl-c">// returns 2014-01-01\n [...].</span></span>
+<span class="pl-s1">}</span></pre></div>
+
+<h2>
+<a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
+
+<p>Comments, feedback and PR are more than welcome!</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/obokaman-com/DateRanger">DateRanger</a> is maintained by <a href="https://github.com/obokaman-com">obokaman-com</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
