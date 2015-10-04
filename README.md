@@ -1,5 +1,5 @@
 # DateRanger
-[![Build Status](https://travis-ci.org/obokaman-com/DateRanger.svg?branch=master)](https://travis-ci.org/obokaman-com/DateRanger) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bf7b5c30-ee2d-47ec-97af-e89aa848707f/mini.png)](https://insight.sensiolabs.com/projects/bf7b5c30-ee2d-47ec-97af-e89aa848707f)
+[![Build Status](https://travis-ci.org/obokaman-com/DateRanger.svg?branch=master)](https://travis-ci.org/obokaman-com/DateRanger) [![Coverage Status](https://coveralls.io/repos/obokaman-com/DateRanger/badge.svg?branch=master&service=github)](https://coveralls.io/github/obokaman-com/DateRanger?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/bf7b5c30-ee2d-47ec-97af-e89aa848707f/mini.png)](https://insight.sensiolabs.com/projects/bf7b5c30-ee2d-47ec-97af-e89aa848707f)
 
 DateRanger library offer an easy way to create date ranges, allowing to create your own special ranges extending `DateRange` or reuse the basic ones included in the library itself (`Year`, `Month`, `Week` or `Day`). This library was inspired by others like [Calendr](https://github.com/yohang/CalendR) by [Yohan Giarelli](http://yohan.giarel.li/) or [Period](http://period.thephpleague.com/) by [The PHP League](http://thephpleague.com/)
 
