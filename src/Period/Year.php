@@ -35,6 +35,6 @@ final class Year extends DateRange
      */
     public function current()
     {
-        return current($this->dates);
+        return parent::current();
     }
 }

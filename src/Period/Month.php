@@ -37,7 +37,7 @@ final class Month extends DateRange
     {
         if ($period instanceof \DateTime)
         {
-            return !$this->overlaps(new Day($period));
+            return !$this->overlaps(new Day($period->format('Y-m-d')));
         }
 
         return !$this->overlaps($period);
@@ -50,6 +50,6 @@ final class Month extends DateRange
      */
     public function current()
     {
-        return current($this->dates);
+        return parent::current();
     }
 }

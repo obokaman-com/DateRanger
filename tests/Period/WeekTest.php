@@ -2,6 +2,7 @@
 
 namespace DateRangerTest\Period;
 
+use DateRanger\Period\Day;
 use DateRanger\Period\Week;
 
 final class WeekTest extends \PHPUnit_Framework_TestCase
@@ -19,5 +20,15 @@ final class WeekTest extends \PHPUnit_Framework_TestCase
         $week1 = new Week('2015-02-12');
         $week2 = Week::fromWeekNumber(2015, 7);
         $this->assertEquals($week1, $week2);
+    }
+
+    /** @test */
+    public function shouldContainDays()
+    {
+        $week = new Week();
+        foreach ($week as $position => $day)
+        {
+            $this->assertInstanceOf(Day::class, $day);
+        }
     }
 }

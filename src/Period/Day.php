@@ -64,14 +64,4 @@ final class Day extends DateRange
 
         return false;
     }
-
-    /**
-     * It's unnecessary defining this method. It's here only to allow IDE type hinting.
-     *
-     * @return Day
-     */
-    public function current()
-    {
-        return current($this->dates);
-    }
 }
