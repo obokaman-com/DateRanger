@@ -32,14 +32,15 @@ final class MonthTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($month->isOutOfMonth($day_outside_string));
     }
 
-
     /** @test */
     public function shouldContainWeeks()
     {
-        $week = new Month();
-        foreach ($week as $position => $day)
+        $month      = new Month();
+        $week_model = new Week();
+
+        foreach ($month as $position => $week)
         {
-            $this->assertInstanceOf(Week::class, $day);
+            $this->assertInstanceOf(get_class($week_model), $week);
         }
     }
 

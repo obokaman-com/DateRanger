@@ -31,10 +31,12 @@ final class YearTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function shouldContainMonths()
     {
-        $week = new Year();
-        foreach ($week as $position => $day)
+        $year        = new Year();
+        $month_model = new Month();
+
+        foreach ($year as $position => $month)
         {
-            $this->assertInstanceOf(Month::class, $day);
+            $this->assertInstanceOf(get_class($month_model), $month);
         }
     }
 }

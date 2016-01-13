@@ -25,10 +25,12 @@ final class WeekTest extends \PHPUnit_Framework_TestCase
     /** @test */
     public function shouldContainDays()
     {
-        $week = new Week();
+        $week      = new Week();
+        $day_model = new Day();
+
         foreach ($week as $position => $day)
         {
-            $this->assertInstanceOf(Day::class, $day);
+            $this->assertInstanceOf(get_class($day_model), $day);
         }
     }
 }
