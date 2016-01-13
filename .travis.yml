@@ -6,15 +6,19 @@ php:
   - 7.0
   - hhvm
 
+matrix:
+    allow_failures:
+        - php: hhvm
+
 install:
   - composer self-update
 
-before_script: 
+before_script:
   - composer install
   - composer require satooshi/php-coveralls
   - mkdir -p build/logs
 
-script: 
+script:
   - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_success:
