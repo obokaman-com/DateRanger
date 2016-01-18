@@ -28,18 +28,8 @@ final class Month extends DateRange
         return new self($year . '-' . $month . '-1');
     }
 
-    /**
-     * @param \DateTime|DateRange $period
-     *
-     * @return bool
-     */
-    public function isOutOfMonth($period)
+    public function isOutOfMonth(DateRange $period)
     {
-        if ($period instanceof \DateTime)
-        {
-            return !$this->overlaps(new Day($period->format('Y-m-d')));
-        }
-
         return !$this->overlaps($period);
     }
 

@@ -25,11 +25,9 @@ final class MonthTest extends \PHPUnit_Framework_TestCase
 
         $day_inside         = new Day('2015-08-20');
         $day_outside        = new Day('2015-09-20');
-        $day_outside_string = new \DateTime('2015-09-20');
 
         $this->assertTrue($month->isOutOfMonth($day_inside));
         $this->assertFalse($month->isOutOfMonth($day_outside));
-        $this->assertFalse($month->isOutOfMonth($day_outside_string));
     }
 
     /** @test */
