@@ -24,7 +24,9 @@ final class Day extends DateRange
         '*-12-26', // San Esteban
 
         '2015-04-03', // Viernes Santo
-        '2015-04-06' // Lunes de Pascua
+        '2015-04-06', // Lunes de Pascua
+        '2016-03-25', // Viernes Santo
+        '2016-03-28', // Lunes de Pascua
     ];
 
     /**
