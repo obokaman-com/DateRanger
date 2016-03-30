@@ -18,6 +18,7 @@ final class Day extends DateRange
         '*-09-11', // Diada
         '*-09-24', // La Mercé
         '*-10-12', // Dia Hispanidad
+        '*-11-01', // Tots Sants
         '*-12-06', // Dia de la Constitución
         '*-12-08', // Immaculada Concepción
         '*-12-25', // Navidad
@@ -27,6 +28,7 @@ final class Day extends DateRange
         '2015-04-06', // Lunes de Pascua
         '2016-03-25', // Viernes Santo
         '2016-03-28', // Lunes de Pascua
+        '2016-05-16', // Segunda Pascua
     ];
 
     /**
