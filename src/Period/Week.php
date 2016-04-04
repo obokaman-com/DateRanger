@@ -4,7 +4,7 @@ namespace DateRanger\Period;
 
 use DateRanger\DateRange;
 
-final class Week extends DateRange
+class Week extends DateRange
 {
     const WEEK_START_DAY = 1;
 

@@ -4,7 +4,7 @@ namespace DateRanger\Period;
 
 use DateRanger\DateRange;
 
-final class Month extends DateRange
+class Month extends DateRange
 {
     /**
      * @param null|string $day

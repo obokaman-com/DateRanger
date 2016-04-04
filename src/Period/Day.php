@@ -4,7 +4,7 @@ namespace DateRanger\Period;
 
 use DateRanger\DateRange;
 
-final class Day extends DateRange
+class Day extends DateRange
 {
     public $weekend = [6, 0];
 
