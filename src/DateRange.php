@@ -39,9 +39,8 @@ abstract class DateRange implements \Iterator, \Countable
         {
             $end = $this->end;
         }
-        $period = new \DatePeriod($start, new \DateInterval($interval), $end);
 
-        return iterator_to_array($period);
+        return new \DatePeriod($start, new \DateInterval($interval), $end);
     }
 
     public function equals(self $period)
