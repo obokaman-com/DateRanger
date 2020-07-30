@@ -18,11 +18,6 @@ abstract class DateRange implements Iterator, Countable
     /** @var array */
     protected $dates = [];
 
-    protected static function cloneDate(DateTimeImmutable $date): DateTimeImmutable
-    {
-        return clone $date;
-    }
-
     public function start(): DateTimeImmutable
     {
         return $this->start;
