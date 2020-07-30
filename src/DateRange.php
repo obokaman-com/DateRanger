@@ -5,15 +5,14 @@ namespace DateRanger;
 use Countable;
 use DateInterval;
 use DatePeriod;
-use DateTime;
 use DateTimeImmutable;
 use Iterator;
 
 abstract class DateRange implements Iterator, Countable
 {
-    /** @var DateTime */
+    /** @var DateTimeImmutable */
     protected $start;
-    /** @var DateTime */
+    /** @var DateTimeImmutable */
     protected $end;
     /** @var array */
     protected $dates = [];
