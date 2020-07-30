@@ -4,39 +4,39 @@ namespace DateRangerTest\Period;
 
 use DateRanger\Period\Month;
 use DateRanger\Period\Year;
+use PHPUnit\Framework\TestCase;
 
-final class YearTest extends \PHPUnit_Framework_TestCase
+final class YearTest extends TestCase
 {
     /**
      * @test
      */
-    public function validYear()
+    public function shouldAcceptAValidYear(): void
     {
         $year1 = new Year();
-        $this->assertEquals(date('Y'), $year1->start()->format('Y'));
+        self::assertEquals(date('Y'), $year1->start()->format('Y'));
 
         $year2 = Year::fromYear(date('Y'));
-        $this->assertEquals(date('Y'), $year2->start()->format('Y'));
+        self::assertEquals(date('Y'), $year2->start()->format('Y'));
     }
 
     /**
      * @test
      */
-    public function validContents()
+    public function shouldGenerateValidContents()
     {
         $year = new Year();
-        $this->assertEquals(12, count($year));
+        self::assertEquals(12, count($year));
     }
 
     /** @test */
-    public function shouldContainMonths()
+    public function shouldContainMonths(): void
     {
-        $year        = new Year();
+        $year = new Year();
         $month_model = new Month();
 
-        foreach ($year as $position => $month)
-        {
-            $this->assertInstanceOf(get_class($month_model), $month);
+        foreach ($year as $position => $month) {
+            self::assertInstanceOf(get_class($month_model), $month);
         }
     }
 }

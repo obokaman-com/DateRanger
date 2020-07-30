@@ -3,27 +3,24 @@
 namespace DateRanger\Period;
 
 use DateRanger\DateRange;
+use DateTimeImmutable;
 
 class Year extends DateRange
 {
-    /**
-     * @param null|string $day
-     */
-    public function __construct($day = null)
+    public function __construct(?string $date_string = null)
     {
-        $day = new \DateTime($day);
+        $date = new DateTimeImmutable($date_string);
 
-        $this->start = $this->cloneDate($day)->modify('first day of january')->setTime(0, 0, 0);
-        $this->end   = $this->cloneDate($day)->modify('last day of december')->setTime(23, 59, 59);
+        $this->start = $date->modify('first day of january')->setTime(0, 0, 0);
+        $this->end = $date->modify('last day of december')->setTime(23, 59, 59);
 
         $period = $this->getPeriod('P1M');
-        foreach ($period as $month)
-        {
+        foreach ($period as $month) {
             $this->dates[] = new Month($month->format('Y-m-d'));
         }
     }
 
-    public static function fromYear($year)
+    public static function fromYear($year): Year
     {
         return new self($year . '-1-1');
     }

@@ -5,41 +5,40 @@ namespace DateRangerTest\Period;
 use DateRanger\Period\Day;
 use DateRanger\Period\Month;
 use DateRanger\Period\Week;
+use PHPUnit\Framework\TestCase;
 
-final class MonthTest extends \PHPUnit_Framework_TestCase
+final class MonthTest extends TestCase
 {
     /** @test */
-    public function validMonth()
+    public function shouldAcceptAValidMonth(): void
     {
         $month1 = new Month();
-        $this->assertEquals(date('Y-m'), $month1->start()->format('Y-m'));
+        self::assertEquals(date('Y-m'), $month1->start()->format('Y-m'));
 
         $month2 = Month::fromMonth(date('Y'), date('m'));
-        $this->assertEquals(date('Y-m'), $month2->start()->format('Y-m'));
+        self::assertEquals(date('Y-m'), $month2->start()->format('Y-m'));
     }
 
     /** @test */
-    public function outsiderDays()
+    public function shouldDetectOutsiderDays(): void
     {
         $month = new Month('2015-09-01');
 
-        $day_inside         = new Day('2015-08-20');
-        $day_outside        = new Day('2015-09-20');
+        $day_inside = new Day('2015-08-20');
+        $day_outside = new Day('2015-09-20');
 
-        $this->assertTrue($month->isOutOfMonth($day_inside));
-        $this->assertFalse($month->isOutOfMonth($day_outside));
+        self::assertTrue($month->isOutOfMonth($day_inside));
+        self::assertFalse($month->isOutOfMonth($day_outside));
     }
 
     /** @test */
-    public function shouldContainWeeks()
+    public function shouldContainWeeks(): void
     {
-        $month      = new Month();
+        $month = new Month();
         $week_model = new Week();
 
-        foreach ($month as $position => $week)
-        {
-            $this->assertInstanceOf(get_class($week_model), $week);
+        foreach ($month as $position => $week) {
+            self::assertInstanceOf(get_class($week_model), $week);
         }
     }
-
 }

@@ -3,51 +3,54 @@
 namespace DateRangerTest\Period;
 
 use DateRanger\Period\Day;
+use PHPUnit\Framework\TestCase;
 
-final class DayTest extends \PHPUnit_Framework_TestCase
+final class DayTest extends TestCase
 {
     /** @test */
-    public function validDay()
+    public function shouldAcceptAValidDay(): void
     {
         $day = new Day();
-        $this->assertEquals(date('Y-m-d'), $day->start()->format('Y-m-d'));
+        self::assertEquals(date('Y-m-d'), $day->start()->format('Y-m-d'));
     }
 
     /** @test */
-    public function detectHoliday()
+    public function shouldDetectHoliday(): void
     {
         $day1 = new Day('2015-01-01');
         $day2 = new Day('2015-04-06');
         $day3 = new Day('2015-04-11');
         $day4 = new Day('2015-04-15');
 
-        $this->assertTrue($day1->isHoliday());
-        $this->assertTrue($day2->isHoliday());
-        $this->assertTrue($day3->isHoliday());
-        $this->assertFalse($day4->isHoliday());
+        self::assertTrue($day1->isHoliday());
+        self::assertTrue($day2->isHoliday());
+        self::assertTrue($day3->isHoliday());
+        self::assertFalse($day4->isHoliday());
     }
 
     /** @test */
-    public function detectWeekend()
+    public function shouldDetectWeekend(): void
     {
-        $day = new Day('2015-09-27');
-        $this->assertTrue($day->isWeekend());
+        $day1 = new Day('2015-09-27');
+        $day2 = new Day('2015-09-27');
+        self::assertTrue($day1->isWeekend());
+        self::assertTrue($day2->isWeekend());
     }
 
     /** @test */
-    public function shouldDetectDifferentDays()
+    public function shouldDetectDifferentDays(): void
     {
         $day1 = new Day('2015-09-27');
         $day2 = new Day('2015-09-26');
 
-        $this->assertFalse($day1->equals($day2));
+        self::assertFalse($day1->equals($day2));
     }
 
     /** @test */
-    public function shouldDetectCurrentDay()
+    public function shouldDetectCurrentDay(): void
     {
         $day = new Day('now');
 
-        $this->assertTrue($day->isCurrent());
+        self::assertTrue($day->isCurrent());
     }
 }

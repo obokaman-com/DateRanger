@@ -4,33 +4,34 @@ namespace DateRangerTest\Period;
 
 use DateRanger\Period\Day;
 use DateRanger\Period\Week;
+use PHPUnit\Framework\TestCase;
 
-final class WeekTest extends \PHPUnit_Framework_TestCase
+final class WeekTest extends TestCase
 {
     /** @test */
-    public function getCorrectFirstDayWeek()
+    public function shouldGetCorrectFirstDayWeek(): void
     {
         $week = new Week('2015-01-01');
-        $this->assertEquals(date('Y-m-d', strtotime('2014-12-29')), $week->start()->format('Y-m-d'));
+        self::assertEquals(date('Y-m-d', strtotime('2014-12-29')), $week->start()->format('Y-m-d'));
     }
 
     /** @test */
-    public function createFromWeekNumber()
+    public function shouldCreateFromWeekNumber(): void
     {
         $week1 = new Week('2015-02-12');
         $week2 = Week::fromWeekNumber(2015, 7);
-        $this->assertEquals($week1, $week2);
+
+        self::assertEquals($week1, $week2);
     }
 
     /** @test */
-    public function shouldContainDays()
+    public function shouldContainDays(): void
     {
-        $week      = new Week();
+        $week = new Week();
         $day_model = new Day();
 
-        foreach ($week as $position => $day)
-        {
-            $this->assertInstanceOf(get_class($day_model), $day);
+        foreach ($week as $position => $day) {
+            self::assertInstanceOf(get_class($day_model), $day);
         }
     }
 }

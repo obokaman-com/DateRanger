@@ -3,11 +3,11 @@
 namespace DateRanger\Period;
 
 use DateRanger\DateRange;
+use DateTimeImmutable;
 
 class Day extends DateRange
 {
     public $weekend = [6, 0];
-
     public $holidays = [
         '*-01-01', // Año nuevo
         '*-01-06', // Reyes
@@ -31,38 +31,32 @@ class Day extends DateRange
         '2016-05-16', // Segunda Pascua
     ];
 
-    /**
-     * @param null|string $day
-     */
-    public function __construct($day = null)
+    public function __construct(?string $date_string = null)
     {
-        $day = new \DateTime($day);
+        $date = new DateTimeImmutable($date_string);
 
-        $this->start = $this->cloneDate($day)->setTime(0, 0, 0);
-        $this->end   = $this->cloneDate($day)->setTime(23, 59, 59);
+        $this->start = $date->setTime(0, 0, 0);
+        $this->end = $date->setTime(23, 59, 59);
 
-        $this->dates = [$this->cloneDate($day)->setTime(0, 0, 0)];
+        $this->dates = [$date->setTime(0, 0, 0)];
     }
 
-    public function isWeekend()
+    public function isWeekend(): bool
     {
-        return in_array($this->start()->format('w'), $this->weekend);
+        return in_array((int) $this->start()->format('w'), $this->weekend, true);
     }
 
-    public function isHoliday()
+    public function isHoliday(): bool
     {
-        if ($this->isWeekend())
-        {
+        if ($this->isWeekend()) {
             return true;
         }
 
-        if (in_array($this->start->format('Y-m-d'), $this->holidays))
-        {
+        if (in_array($this->start->format('Y-m-d'), $this->holidays)) {
             return true;
         }
 
-        if (in_array($this->start->format('*-m-d'), $this->holidays))
-        {
+        if (in_array($this->start->format('*-m-d'), $this->holidays)) {
             return true;
         }
 

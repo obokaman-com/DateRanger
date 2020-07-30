@@ -3,32 +3,29 @@
 namespace DateRanger\Period;
 
 use DateRanger\DateRange;
+use DateTimeImmutable;
 
 class Month extends DateRange
 {
-    /**
-     * @param null|string $day
-     */
-    public function __construct($day = null)
+    public function __construct(?string $date_string = null)
     {
-        $day = new \DateTime($day);
+        $date = new DateTimeImmutable($date_string);
 
-        $this->start = self::cloneDate($day)->modify('first day of this month')->setTime(0, 0, 0);
-        $this->end   = self::cloneDate($day)->modify('last day of this month')->setTime(23, 59, 59);
+        $this->start = $date->modify('first day of this month')->setTime(0, 0, 0);
+        $this->end = $date->modify('last day of this month')->setTime(23, 59, 59);
 
         $period = $this->getPeriod('P7D', Week::getFirstDayOfWeek($this->start()));
-        foreach ($period as $week)
-        {
+        foreach ($period as $week) {
             $this->dates[] = new Week($week->format('Y-m-d'));
         }
     }
 
-    public static function fromMonth($year, $month)
+    public static function fromMonth($year, $month): Month
     {
         return new self($year . '-' . $month . '-1');
     }
 
-    public function isOutOfMonth(DateRange $period)
+    public function isOutOfMonth(DateRange $period): bool
     {
         return !$this->overlaps($period);
     }
