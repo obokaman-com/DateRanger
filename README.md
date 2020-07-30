@@ -18,9 +18,9 @@ or include the library in your project's composer.json:
 
 ```javascript
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.2",
         [...]
-        "obokaman/dateranger": "^0.1.2",
+        "obokaman/dateranger": "^0.1",
         [...]
     },
 ```
@@ -29,38 +29,42 @@ or include the library in your project's composer.json:
 
 ```php
 <?php
+
+include('vendor/autoload.php');
+
 use DateRanger\Period\Year;
 
-$year = Year::fromYear(2015);
-echo "<h1>" . $year->start()->format('Y') . "</h1>";
+$year = new Year();
 
-foreach ($year as $month)
-{
-    echo "<table><caption>" . $month->start()->format('F') . "</caption>";
-    echo "<thead><tr><th>L</th><th>M</th><th>X</th><th>J</th><th>V</th><th>S</th><th>D</th></tr></thead><tbody>";
-    foreach ($month as $week)
-    {
-        echo "<tr>";
-        foreach ($week as $day)
-        {
-            echo "<td>";
-            echo $day->start()->format('d');
-            echo "</td>";
+echo "<h1>{$year->start()->format('Y')}</h1>";
+foreach ($year as $month) {
+    echo "<table><caption>{$month->start()->format('F')}</caption>";
+    echo "<thead><tr><th></th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead><tbody>";
+    foreach ($month as $week) {
+        echo "<tr><td><small>{$week->start()->format('W')}</small></td>";
+        foreach ($week as $day) {
+            if (!$day->overlaps($month)) $day_color = '#ddd;';
+            elseif ($day->isHoliday()) $day_color = 'red;';
+            else $day_color = '#333';
+
+            echo "<td style='border:1px solid #ccc;color:{$day_color}'>";
+            echo $day->start()->format('d') . '</td>';
         }
-        echo "</tr>";
+        echo '</tr>';
     }
-    echo "</tbody></table>";
+    echo '</tbody></table>';
 }
+
 ```
 
 ## Basic usage
 
 Library provides several date range objects that extends from `DateRange`. All these objects share some functionality:
 
-* `start()` return a DateTime object with the start date for the period.
-* `end()` return a DateTime object with the end date for the period.
-* `getPeriod(string $interval)` returns an array with DateTime objects following the given interval in string format (same values accepted by DateInterval constructor).
-* `overlaps(DateRange $period)` returns a boolean indicating if period overlaps with the one passed as argument.
+* `start()` return a DateTimeImmutable object with the start date for the period.
+* `end()` return a DateTimeImmutable object with the end date for the period.
+* `getPeriod(string $interval)` returns a DatePeriod object based on the current DateRange, following the given interval in string format (same values accepted by DateInterval constructor).
+* `overlaps(DateRange $period)` returns a boolean indicating if period overlaps with other DateRange passed as argument.
 * `isCurrent()` returns a boolean indicating if period is the current one: current year, month, week or day, depending on the class being used.
 * `equals(DateRange $period)` compares start and end dates between current period and the one passed as argument.
 
@@ -75,11 +79,14 @@ echo count($year); // returns 12.
 
 ```php
 $month = new Month('2014-01-01');
-echo count($month); // returns 31.
-echo $month->start()->format('F'); // returns 'January'.
-foreach ($month as $day)
-{
-	echo $day->start()->format('Y-m-d') . PHP_EOL; // returns 2014-01-01\n [...].
+echo count($month) . PHP_EOL; // returns 5 (weeks).
+
+echo $month->start()->format('F') . PHP_EOL; // returns 'January'.
+foreach ($month as $week) {
+    foreach ($week as $day) {
+        if ($month->isOutOfMonth($day)) continue;
+        echo $day->start()->format('Y-m-d') . PHP_EOL; // returns 2014-01-01\n [...]
+    }
 }
 ```
 
